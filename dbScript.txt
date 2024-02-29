@@ -1,0 +1,17 @@
+CREATE DATABASE productonboarding;
+
+use productonboarding;
+
+create table users (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	name varchar(256),
+	email varchar(128),
+	password varchar(128), 
+    phone varchar(14)
+);
+
+create table products (
+	productId INT AUTO_INCREMENT PRIMARY KEY,
+	productName varchar(128),
+	price decimal(10, 2)
+);
