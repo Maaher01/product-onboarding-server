@@ -2,6 +2,7 @@ const {
 	getAllProducts,
 	getProductById,
 	createProduct,
+	editProduct,
 	deleteProduct,
 } = require("../utils/product_utils");
 
@@ -43,6 +44,30 @@ const addProduct = async (req, res) => {
 	}
 };
 
+const productEdit = async (req, res) => {
+	const { productName, price } = req.body;
+	const { productId } = req.params;
+
+	try {
+		const product = await editProduct(productName, price, productId);
+		if (!product) {
+			return res.status(404).json({
+				status: "Failed",
+				error: "Product not found",
+			});
+		}
+		return res.status(200).json({
+			status: "Success",
+			data: product,
+		});
+	} catch (error) {
+		res.status(500).json({
+			status: "Failed",
+			error: error.message,
+		});
+	}
+};
+
 const productDelete = async (req, res) => {
 	const { productId } = req.params;
 	try {
@@ -66,4 +91,4 @@ const productDelete = async (req, res) => {
 	}
 };
 
-module.exports = { displayAllProducts, addProduct, productDelete };
+module.exports = { displayAllProducts, addProduct, productEdit, productDelete };

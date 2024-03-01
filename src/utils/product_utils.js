@@ -33,6 +33,18 @@ const createProduct = async (productName, price) => {
 	return null;
 };
 
+const editProduct = async (productName, price, productId) => {
+	const client = getClient();
+	const [row] = await client.query(
+		"UPDATE products SET productName=?, price=? WHERE productId=?;",
+		[productName, price, productId]
+	);
+	if (row) {
+		return row;
+	}
+	return null;
+};
+
 const deleteProduct = async (productId) => {
 	const client = getClient();
 	const [row] = await client.query("DELETE FROM products WHERE productId=?;", [
@@ -48,5 +60,6 @@ module.exports = {
 	getAllProducts,
 	getProductById,
 	createProduct,
+	editProduct,
 	deleteProduct,
 };
