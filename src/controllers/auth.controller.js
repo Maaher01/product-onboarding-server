@@ -10,7 +10,7 @@ const login = async (req, res) => {
 		if (!user) {
 			return res.status(404).json({
 				status: "Failed",
-				error: "User does not exist",
+				message: "User does not exist",
 			});
 		}
 		const comparePass = await comparePassword(password, user.password);
